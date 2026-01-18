@@ -1,4 +1,4 @@
-from ui import main_content
+import ui.main_content as main_content
 
 def main():
     content = main_content.MainContent()

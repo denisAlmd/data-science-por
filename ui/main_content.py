@@ -9,6 +9,7 @@ class MainContent:
 
     def render_main_content(self):
         self.sidebar.render_sidebar()
+        self.sidebar.sidebar_info()
 
     def set_app_cofig(self, config= {"page_title":"Data Science Application", "page_icon":":bar_chart:", "layout":"wide", "initial_sidebar_state":"expanded"}):
         st.set_page_config(
@@ -17,3 +18,5 @@ class MainContent:
             layout=config["layout"],
             initial_sidebar_state=config["initial_sidebar_state"],
         )
+
+    
