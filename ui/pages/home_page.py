@@ -12,17 +12,24 @@ def render_home_page():
     footer_home_page()
 
 def content_home_page():
+    st.subheader("World Cup Matches Data Overview")
     with st.spinner("Loading World Cup Matches Data..."):
-        st.subheader("World Cup Matches Data Overview")
-        sample_data = load_data("data/WorldCupMatches.csv")
+        try:
+            sample_data = load_data("data/WorldCupMatches.csv")
+        except Exception as e:
+            st.error(f"Erro ao carregar dados: {e}")
+            return
 
     if not sample_data.empty:
+
         st.write("Here is a preview of the World Cup Matches data:")
         st.dataframe(sample_data.head())
 
-    st.subheader("Number of Matches per Year")
-    matches_per_year = sample_data['Year'].value_counts().sort_index()
-    st.bar_chart(matches_per_year, width='stretch', x_label='Year', y_label='Number of Matches')
+        st.subheader("Number of Matches per Year")
+        matches_per_year = sample_data['Year'].value_counts().sort_index().copy()
+        st.bar_chart(matches_per_year, width='stretch', x_label='Year', y_label='Number of Matches')
+    else:
+        st.write("An error occurred while loading the data. We apologize for the inconvenience.")
 
 def header_home_page():
     st.title("Home Page")
@@ -33,4 +40,4 @@ def header_home_page():
 
 def footer_home_page():
     st.markdown("---")
-    st.write("© 2024 Data Science Application. All rights reserved.")
+    #st.write("© 2024 Data Science Application. All rights reserved.")
